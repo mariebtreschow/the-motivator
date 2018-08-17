@@ -26,7 +26,7 @@ app.get('/api/frank-fact', (req, res) => {
 
 app.post('/api/frank-fact', (req, res) => {
     frank.createFrankFact(req.body).then((factCreated) => {
-        res.send({'Successfully created' : factCreated});
+        res.send({'Successfully added new Frank Fact' : factCreated});
     });
 });
 
