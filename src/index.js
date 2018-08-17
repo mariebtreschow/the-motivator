@@ -25,13 +25,15 @@ app.get('/api/frank-fact', (req, res) => {
 });
 
 app.post('/api/frank-fact', (req, res) => {
-    frank.createFrankFact(req.body).then(() => {
-        res.send("Success");
+    frank.createFrankFact(req.body).then((factCreated) => {
+        res.send({'Successfully created' : factCreated});
     });
 });
 
 app.use((err, req, res, next) => {
-    res.status(err.error.status || 500);
+    if (err.error){
+        res.status(err.error.status || 500)
+    }
     res.json(err);
 });
 

@@ -4,20 +4,26 @@ const FileSync = require('lowdb/adapters/FileSync')
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 
-async function create(newFrankFact) {
-    const newFrankFact = await db.get('facts')
-      .push(newFrankFact)
-      .write()
+db.defaults({ facts: [
+        {
+            title: 'frankFact is awesome',
+            description: 'too good to be true'
+        }
+    ]})
+    .write()
 
-    return newFrankFact
+async function create (newFrankFact) {
+    const createFact = await db.get('facts')
+        .push(newFrankFact)
+        .write()
+    return createFact
 }
 
-async function get() {
-    const frankFact = await db.get('facts')
+async function get () {
+    const getFact = await db.get('facts')
         .find({ title: 'frankFact is awesome' })
         .value()
-    return frankFact
-
+    return getFact
 }
 
 module.exports = {
