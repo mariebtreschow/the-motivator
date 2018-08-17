@@ -20,10 +20,8 @@ async function create (newFrankFact) {
 }
 
 async function get () {
-    const getFact = await db.get('facts')
-        .find({ title: 'frankFact is awesome' })
-        .value()
-    return getFact
+    const getFact = await db.get('facts').value()
+    return getFact[Math.floor(Math.random() * getFact.length)]
 }
 
 module.exports = {
