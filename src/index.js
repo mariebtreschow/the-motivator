@@ -2,14 +2,11 @@ require ("babel-polyfill");
 
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8080;
-const bodyParser = require('body-parser');
-const frank = require('./controllers/frank');
+const port = process.env.PORT || 8000;
+const frankFact = require('./models/facts')
 const timeout = require('connect-timeout');
 const cors = require('cors');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(timeout('5s'));
 app.use(haltOnTimedout);
 app.use(cors());
@@ -19,15 +16,9 @@ function haltOnTimedout (req, res, next) {
 }
 
 app.get('/api/frank-fact', (req, res) => {
-    frank.getFrankFact().then((frankFact) => {
+    frankFact.get().then((frankFact) => {
         res.send(frankFact);
     })
-});
-
-app.post('/api/frank-fact', (req, res) => {
-    frank.createFrankFact(req.body).then((factCreated) => {
-        res.send({'Successfully added new Frank Fact' : factCreated});
-    });
 });
 
 app.use((err, req, res, next) => {
