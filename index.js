@@ -23,7 +23,10 @@ app.get('/', (req, res) => {
 
 app.post('/frank-fact', (req, res) => {
     frankFact.get().then((frankFact) => {
-        res.send(frankFact);
+        res.send({
+            "response_type": "in_channel",
+            "text": `${frankFact}`,
+        });
     })
 });
 
