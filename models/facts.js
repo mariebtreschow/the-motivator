@@ -8,7 +8,9 @@ function get () {
 
         return doc.getRows(1, (err, rows) => {
             const facts = _.map(rows, (row) => {
-                return row.facts
+                if (row.facts) {
+                    return row.facts
+                }
             })
             const item = facts[Math.floor(Math.random()*facts.length)];
 
