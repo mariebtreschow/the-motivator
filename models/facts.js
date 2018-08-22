@@ -7,9 +7,8 @@ function get () {
     return new Promise((resolve, reject) => {
 
         return doc.getRows(1, (err, rows) => {
-
             const facts = _.map(rows, (row) => {
-                return row.fact
+                return row.facts
             })
             const item = facts[Math.floor(Math.random()*facts.length)];
 
