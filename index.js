@@ -15,7 +15,13 @@ function haltOnTimedout (req, res, next) {
     if (!req.timedout) next();
 }
 
-app.post('/', (req, res) => {
+app.get('/', (req, res) => {
+    frankFact.get().then((frankFact) => {
+        res.send(frankFact);
+    })
+});
+
+app.post('/frank-fact', (req, res) => {
     frankFact.get().then((frankFact) => {
         res.send(frankFact);
     })
