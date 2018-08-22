@@ -15,7 +15,7 @@ function haltOnTimedout (req, res, next) {
     if (!req.timedout) next();
 }
 
-app.get('/api/frank-fact', (req, res) => {
+app.get('/', (req, res) => {
     frankFact.get().then((frankFact) => {
         res.send(frankFact);
     })
