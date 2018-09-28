@@ -6,6 +6,7 @@ const port = process.env.PORT || 8000;
 const frankFact = require('./models/facts')
 const timeout = require('connect-timeout');
 const cors = require('cors');
+const fs = require('fs');
 
 app.use(timeout('5s'));
 app.use(haltOnTimedout);
@@ -15,10 +16,28 @@ function haltOnTimedout (req, res, next) {
     if (!req.timedout) next();
 }
 
+function getJson() {
+  return new Promise((resolve, reject) => {
+    fs.readFile(require.resolve('./models/facts.json'), (err, data) => {
+      try {
+        const json = JSON.parse(data)
+        resolve(json.facts);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  });
+}
+
 app.get('/', (req, res) => {
     frankFact.get().then((frankFact) => {
-        res.send(frankFact);
-    })
+        getJson().then((facts) => {
+          const item = facts[Math.floor(Math.random()*facts.length)];
+          res.send(item);
+        }).catch((err) => {
+          res.send(err);
+        })
+    });
 });
 
 app.post('/frank-fact', (req, res) => {
@@ -34,7 +53,7 @@ app.post('/frank-fact', (req, res) => {
                 "text": `We could not find a frankie fact, try again later!`,
             });
         }
-    })
+    });
 });
 
 app.use((err, req, res, next) => {

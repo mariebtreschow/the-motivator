@@ -5,7 +5,6 @@ const doc = new GoogleSpreadsheet('1Fm16jiOYLe0KfbQA5WQmVYqSGuu5OuiOA66q3h09cHE'
 
 function get () {
     return new Promise((resolve, reject) => {
-
         return doc.getRows(1, (err, rows) => {
             const facts = _.map(rows, (row) => {
                 if (row.facts) {
@@ -13,10 +12,8 @@ function get () {
                 }
             })
             const item = facts[Math.floor(Math.random()*facts.length)];
-
             resolve(item)
         })
-
     })
 }
 
