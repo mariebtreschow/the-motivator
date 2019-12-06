@@ -1,3 +1,3 @@
-# frank-fact
+# motivator
 
-the most awesomest chatbot in teh webs
+the most awesomest motivator chatbot in the webs
