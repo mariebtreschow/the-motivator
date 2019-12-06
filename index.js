@@ -14,19 +14,7 @@ function haltOnTimedout (req, res, next) {
 }
 
 app.get('/', (req, res) => {
-    motivator.get().then((motivation) => {
-        if (motivation) {
-            res.send({
-                "response_type": "in_channel",
-                "text": `${motivation}`,
-            });
-        } else {
-            res.send({
-                "response_type": "in_channel",
-                "text": `We are busy doing other stuff you piece of shit!`,
-            });
-        }
-    });
+    res.json({"ping" : "pong"});
 });
 
 app.post('/motivation', (req, res) => {
