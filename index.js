@@ -13,6 +13,22 @@ function haltOnTimedout (req, res, next) {
     if (!req.timedout) next();
 }
 
+app.get('/', (req, res) => {
+    motivator.get().then((motivation) => {
+        if (motivation) {
+            res.send({
+                "response_type": "in_channel",
+                "text": `${motivation}`,
+            });
+        } else {
+            res.send({
+                "response_type": "in_channel",
+                "text": `We are busy doing other stuff you piece of shit!`,
+            });
+        }
+    });
+});
+
 app.post('/motivation', (req, res) => {
     motivator.get().then((motivation) => {
         if (motivation) {
